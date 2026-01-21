@@ -344,6 +344,9 @@
 		  color: var(--primary-btn);
 		  font-weight: normal;
 		}
+		
+		a { transition: background-color 0.3s, box-shadow 0.3s; }
+
 
         a.primary-btn, a.secondary-btn, a.light-brown-btn, a.bright-orange-btn, a.dark-brown-btn, a.rusty-pink-btn {
             display: inline-block;
@@ -540,20 +543,25 @@
         updateClock();
 
         // Filter Buttons
-        function filterButtons() {
-            const input = document.getElementById('filter-input').value.toLowerCase();
-            const categories = document.querySelectorAll('.category');
-            categories.forEach(category => {
-                const buttons = category.querySelectorAll('a');
-                let hasMatch = false;
-                buttons.forEach(button => {
-                    if (button.textContent.toLowerCase().includes(input)) {
-                        hasMatch = true;
-                    }
-                });
-                category.style.display = hasMatch || input === '' ? 'block' : 'none';
-            });
-        }
+		function filterButtons() {
+		    const input = document.getElementById('filter-input').value.toLowerCase();
+		    const categories = document.querySelectorAll('.category');
+		    categories.forEach(category => {
+		        const buttons = category.querySelectorAll('a');
+		        let hasMatch = false;
+		        buttons.forEach(button => {
+		            if (button.textContent.toLowerCase().includes(input)) {
+		                button.style.backgroundColor = '#FFD700'; // Gold highlight for spotlight
+		                button.style.boxShadow = '0 0 10px #FFD700'; // Glow effect
+		                hasMatch = true;
+		            } else {
+		                button.style.backgroundColor = ''; // Reset
+		                button.style.boxShadow = ''; // Reset
+		            }
+		        });
+		        category.style.display = hasMatch || input === '' ? 'block' : 'none';
+		    });
+		}
 
         // Prevent page refresh on Enter and trigger filter
         function filterOnEnter(event) {
