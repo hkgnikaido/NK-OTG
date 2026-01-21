@@ -42,10 +42,10 @@
     <div class="container section-wrapper">
         <h1>NK OTG</h1>
         <h3 style="text-align: center; font-size: 0.8em; color: #ccc; margin-bottom: 10px; font-family: 'Futura', 'Arial', sans-serif; font-style: italic;">Dev. @Nic Kwok 2025, updated 2026 - v1</h3>
-        <div class="filter-container" style="margin: 0 auto 20px; max-width: 300px;">
-            <input type="text" id="filter-input" placeholder="Search..." oninput="filterButtons()" onkeypress="return filterOnEnter(event)">
-        </div>
-
+		<div class="filter-container" style="margin: 0 auto 20px; max-width: 300px; position: relative;">
+		    <input type="text" id="filter-input" placeholder="Search..." oninput="filterButtons()" onkeypress="return filterOnEnter(event)">
+		    <button id="clear-btn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1em; color: #ccc;">✖</button>
+		</div>
         <!-- Section 1: Charting & Analysis -->
 		<div class="category" id="google-suite">
 		  <h2>GOOG</h2>
@@ -571,6 +571,18 @@
                 return false;
             }
         }
+
+		document.getElementById('clear-btn').addEventListener('click', () => {
+		    document.getElementById('filter-input').value = '';
+		    filterButtons();
+		});
+		
+		document.addEventListener('keydown', (e) => {
+		    if (e.key === 'Escape') {
+		        document.getElementById('filter-input').value = '';
+		        filterButtons();
+		    }
+		});
     </script>
 </body>
 </html>
