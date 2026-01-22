@@ -254,29 +254,54 @@
             font-family: Arial, sans-serif;
         }
 
-        body {
-            background-color: var(--bg-color);
-			background-image: url('./img/Acguy.webp');
-			background-repeat: no-repeat;
-		    background-size: 35vw auto;
+		body {
+		    background-color: var(--bg-color);
+		    color: var(--text-color);
+		    line-height: 1.6;
+		    scroll-behavior: smooth;
+		    min-height: 100vh;
+		    position: relative;               /* ← important for absolute/fixed children */
+		}
+		
+		/* The Acguy image lives on its own fixed pseudo-element */
+		body::before {
+		    content: "";
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    width: 35vw;                      /* same as your background-size */
+		    height: auto;                     /* or a max-height if you want to cap it */
+		    aspect-ratio: 1 / 1.414;          /* optional: preserve original aspect if known */
+		    background-image: url('./img/Acguy.webp');
+		    background-repeat: no-repeat;
+		    background-size: contain;         /* or 100% auto — prevents forced upscaling */
 		    background-position: top left;
-		    background-attachment: fixed;
-
-			/* The fade-out mask — only affects bottom edge */
+		    
+		    /* Fade only the bottom of THIS image layer */
 		    -webkit-mask-image: linear-gradient(
 		        to bottom,
-		        black 70%,           /* fully visible/opaque up to 70% of height */
-		        transparent 100%     /* fades to fully transparent at bottom */
+		        black 65%,                    /* adjust 60–80% depending on desired fade start */
+		        transparent 100%
 		    );
 		    mask-image: linear-gradient(
 		        to bottom,
-		        black 70%,
+		        black 65%,
 		        transparent 100%
 		    );
-            color: var(--text-color);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
+		
+		    z-index: -1;                      /* behind content */
+		    pointer-events: none;
+		}
+		
+		/* Optional: make fade softer/smoother */
+		body::before {
+		    mask-image: linear-gradient(
+		        to bottom,
+		        black 60%,
+		        rgba(0,0,0,0.3) 80%,
+		        transparent 100%
+		    );
+		}
 
         body.light-mode {
 		    --bg-color: var(--light-bg);           /* update the variable instead of overriding everything */
@@ -556,23 +581,56 @@
 
         // Filter Buttons
 		function filterButtons() {
-		    const input = document.getElementById('filter-input').value.toLowerCase();
+		    const input = document.getElementById('filter-input').value.toLowerCase().trim();
+		    const allButtons = document.querySelectorAll('.category a'); // Select ALL buttons at once
+		
+		    // Step 1: Reset ALL highlights first (critical to clear when search is empty)
+		    allButtons.forEach(button => {
+		        button.style.backgroundColor = '';     // Remove yellow
+		        button.style.boxShadow = '';           // Remove glow
+		        // If you added other highlight styles (e.g. scale, border), reset them here too
+		        // button.style.transform = '';
+		        // button.style.border = '';
+		    });
+		
+		    // Step 2: If search is empty → show all categories, no highlights needed
+		    if (input === '') {
+		        document.querySelectorAll('.category').forEach(category => {
+		            category.style.display = 'block';
+		        });
+		        return; // Exit early — nothing else to do
+		    }
+		
+		    // Step 3: Search is not empty → apply highlights only to matches
+		    let anyMatchFound = false;
 		    const categories = document.querySelectorAll('.category');
+		
 		    categories.forEach(category => {
 		        const buttons = category.querySelectorAll('a');
-		        let hasMatch = false;
+		        let categoryHasMatch = false;
+		
 		        buttons.forEach(button => {
 		            if (button.textContent.toLowerCase().includes(input)) {
-		                button.style.backgroundColor = '#FFD700'; // Gold highlight for spotlight
-		                button.style.boxShadow = '0 0 10px #FFD700'; // Glow effect
-		                hasMatch = true;
-		            } else {
-		                button.style.backgroundColor = ''; // Reset
-		                button.style.boxShadow = ''; // Reset
+		                // Apply your beautiful yellow spotlight
+		                button.style.backgroundColor = '#FFD700';          // Gold highlight
+		                button.style.boxShadow = '0 0 12px #FFD700, 0 0 20px #FFEA00'; // Stronger glow (adjust as you like)
+		                // Optional extras you can keep or remove:
+		                // button.style.transform = 'scale(1.05)';
+		                // button.style.zIndex = '10';
+		
+		                categoryHasMatch = true;
+		                anyMatchFound = true;
 		            }
 		        });
-		        category.style.display = hasMatch || input === '' ? 'block' : 'none';
+		
+		        // Show/hide the whole category based on whether it has matches
+		        category.style.display = categoryHasMatch ? 'block' : 'none';
 		    });
+		
+		    // Optional: If nothing matched at all, you could show a message
+		    // if (!anyMatchFound) {
+		    //     // e.g. alert("No matches found") or show a hidden <div id="no-results">
+		    // }
 		}
 
         // Prevent page refresh on Enter and trigger filter
