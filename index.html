@@ -260,47 +260,58 @@
 		    line-height: 1.6;
 		    scroll-behavior: smooth;
 		    min-height: 100vh;
-		    position: relative;               /* ← important for absolute/fixed children */
+		    position: relative;                    /* required for pseudo-element positioning */
 		}
 		
-		/* The Acguy image lives on its own fixed pseudo-element */
+		/* Acguy image on its own fixed pseudo-element — full strength + bottom fade only */
 		body::before {
 		    content: "";
 		    position: fixed;
 		    top: 0;
 		    left: 0;
-		    width: 35vw;                      /* same as your background-size */
-		    height: auto;                     /* or a max-height if you want to cap it */
-		    aspect-ratio: 1 / 1.414;          /* optional: preserve original aspect if known */
+		    width: 40vw;                           /* slightly larger — adjust 35–50vw to taste */
+		    height: auto;
+		    min-height: 300px;                     /* prevents it from becoming too tiny on narrow screens */
 		    background-image: url('./img/Acguy.webp');
 		    background-repeat: no-repeat;
-		    background-size: contain;         /* or 100% auto — prevents forced upscaling */
+		    background-size: contain;              /* keeps natural proportions, no forced stretch */
 		    background-position: top left;
-		    
-		    /* Fade only the bottom of THIS image layer */
+		
+		    /* Force 100% opacity / full visibility */
+		    opacity: 1 !important;
+		
+		    /* Bottom fade — only on the image itself */
 		    -webkit-mask-image: linear-gradient(
 		        to bottom,
-		        black 65%,                    /* adjust 60–80% depending on desired fade start */
-		        transparent 100%
+		        black 75%,                         /* fully visible up to 75% of image height */
+		        rgba(0,0,0,0.6) 85%,               /* starts gentle fade */
+		        transparent 100%                   /* fully gone at bottom */
 		    );
 		    mask-image: linear-gradient(
 		        to bottom,
-		        black 65%,
+		        black 75%,
+		        rgba(0,0,0,0.6) 85%,
 		        transparent 100%
 		    );
 		
-		    z-index: -1;                      /* behind content */
-		    pointer-events: none;
+		    z-index: -1;                           /* behind all content */
+		    pointer-events: none;                  /* doesn't block clicks */
 		}
 		
-		/* Optional: make fade softer/smoother */
-		body::before {
-		    mask-image: linear-gradient(
-		        to bottom,
-		        black 60%,
-		        rgba(0,0,0,0.3) 80%,
-		        transparent 100%
-		    );
+		/* Light mode — keep image strong, just tint background if needed */
+		body.light-mode {
+		    --bg-color: var(--light-bg);
+		    color: #333;
+		}
+		
+		/* Optional: subtle light-mode overlay to reduce contrast if image feels too dark */
+		body.light-mode::after {
+		    content: "";
+		    position: fixed;
+		    inset: 0;
+		    background: rgba(204, 153, 102, 0.35); /* very light tint — adjust 0.2–0.5 */
+		    pointer-events: none;
+		    z-index: -2;                           /* behind the image pseudo-element */
 		}
 
         body.light-mode {
