@@ -261,14 +261,26 @@
 		    background-size: 35vw auto;
 		    background-position: top left;
 		    background-attachment: fixed;
+
+			/* The fade-out mask — only affects bottom edge */
+		    -webkit-mask-image: linear-gradient(
+		        to bottom,
+		        black 70%,           /* fully visible/opaque up to 70% of height */
+		        transparent 100%     /* fades to fully transparent at bottom */
+		    );
+		    mask-image: linear-gradient(
+		        to bottom,
+		        black 70%,
+		        transparent 100%
+		    );
             color: var(--text-color);
             line-height: 1.6;
             scroll-behavior: smooth;
         }
 
         body.light-mode {
-            background: var(--light-bg);
-            color: #333;
+		    --bg-color: var(--light-bg);           /* update the variable instead of overriding everything */
+		    color: #333;
         }
 
         body.light-mode .category {
