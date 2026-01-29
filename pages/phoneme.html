@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>44 Sounds Phonemic Chart (Offline)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 20px; text-align: center; }
+    h1 { color: #333; }
+    .section { margin: 30px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; max-width: 1100px; margin: 0 auto; }
+    .sound { 
+      background: #fff; border: 2px solid #ddd; border-radius: 12px; padding: 16px; 
+      font-size: 2.4rem; cursor: pointer; transition: all 0.15s; min-height: 100px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .sound:hover { transform: scale(1.08); box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-color: #007bff; }
+    .label { font-size: 0.9rem; color: #555; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<h1>44 English Sounds – Click to Hear (Offline)</h1>
+<p style="color:#666;">Uses your browser's built-in voice. Best in Chrome/Edge. Short sounds may sound clipped — normal for TTS.</p>
+
+<div class="section">
+  <h2>12 x Monophthong Vowels</h2>
+  <div class="grid">
+    <div class="sound" onclick="speak('iː')">iː <div class="label">sheep</div></div>
+    <div class="sound" onclick="speak('ɪ')">ɪ <div class="label">ship</div></div>
+    <div class="sound" onclick="speak('e')">e <div class="label">bed</div></div>
+    <div class="sound" onclick="speak('æ')">æ <div class="label">cat</div></div>
+    <div class="sound" onclick="speak('ɑː')">ɑː <div class="label">car</div></div>
+    <div class="sound" onclick="speak('ɒ')">ɒ <div class="label">hot (BrE)</div></div>
+    <div class="sound" onclick="speak('ɔː')">ɔː <div class="label">saw</div></div>
+    <div class="sound" onclick="speak('ʊ')">ʊ <div class="label">book</div></div>
+    <div class="sound" onclick="speak('uː')">uː <div class="label">food</div></div>
+    <div class="sound" onclick="speak('ʌ')">ʌ <div class="label">cup</div></div>
+    <div class="sound" onclick="speak('ɜː')">ɜː <div class="label">bird</div></div>
+    <div class="sound" onclick="speak('ə')">ə <div class="label">teacher</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>8 x Diphthongs</h2>
+  <div class="grid">
+    <div class="sound" onclick="speak('eɪ')">eɪ <div class="label">face</div></div>
+    <div class="sound" onclick="speak('aɪ')">aɪ <div class="label">price</div></div>
+    <div class="sound" onclick="speak('ɔɪ')">ɔɪ <div class="label">boy</div></div>
+    <div class="sound" onclick="speak('əʊ')">əʊ <div class="label">go</div></div>
+    <div class="sound" onclick="speak('aʊ')">aʊ <div class="label">now</div></div>
+    <div class="sound" onclick="speak('ɪə')">ɪə <div class="label">near</div></div>
+    <div class="sound" onclick="speak('eə')">eə <div class="label">hair</div></div>
+    <div class="sound" onclick="speak('ʊə')">ʊə <div class="label">tour</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>24 x Consonants</h2>
+  <div class="grid">
+    <div class="sound" onclick="speak('p')">p <div class="label">pen</div></div>
+    <div class="sound" onclick="speak('b')">b <div class="label">bad</div></div>
+    <div class="sound" onclick="speak('t')">t <div class="label">tea</div></div>
+    <div class="sound" onclick="speak('d')">d <div class="label">dog</div></div>
+    <div class="sound" onclick="speak('k')">k <div class="label">cat</div></div>
+    <div class="sound" onclick="speak('g')">g <div class="label">go</div></div>
+    <div class="sound" onclick="speak('f')">f <div class="label">fan</div></div>
+    <div class="sound" onclick="speak('v')">v <div class="label">van</div></div>
+    <div class="sound" onclick="speak('θ')">θ <div class="label">think</div></div>
+    <div class="sound" onclick="speak('ð')">ð <div class="label">this</div></div>
+    <div class="sound" onclick="speak('s')">s <div class="label">see</div></div>
+    <div class="sound" onclick="speak('z')">z <div class="label">zoo</div></div>
+    <div class="sound" onclick="speak('ʃ')">ʃ <div class="label">ship</div></div>
+    <div class="sound" onclick="speak('ʒ')">ʒ <div class="label">measure</div></div>
+    <div class="sound" onclick="speak('h')">h <div class="label">hat</div></div>
+    <div class="sound" onclick="speak('m')">m <div class="label">man</div></div>
+    <div class="sound" onclick="speak('n')">n <div class="label">no</div></div>
+    <div class="sound" onclick="speak('ŋ')">ŋ <div class="label">sing</div></div>
+    <div class="sound" onclick="speak('l')">l <div class="label">leg</div></div>
+    <div class="sound" onclick="speak('r')">r <div class="label">red</div></div>
+    <div class="sound" onclick="speak('j')">j <div class="label">yes</div></div>
+    <div class="sound" onclick="speak('w')">w <div class="label">wet</div></div>
+    <div class="sound" onclick="speak('tʃ')">tʃ <div class="label">chin</div></div>
+    <div class="sound" onclick="speak('dʒ')">dʒ <div class="label">jam</div></div>
+  </div>
+</div>
+
+<script>
+function speak(text) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'en-GB';           // Try 'en-US' if you prefer American accent
+  utterance.rate = 0.7;               // Slower → sounds more natural for phonemes
+  utterance.pitch = 1.1;
+  speechSynthesis.speak(utterance);
+}
+</script>
+
+</body>
+</html>
