@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English Phonemes – Click to Hear</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { font-size: 24px; }
+    p { max-width: 700px; }
+    .section-title {
+      margin-top: 24px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .cell {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 8px 4px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      background: #f9f9f9;
+      line-height: 1.2;
+    }
+    .cell:hover {
+      background: #e6f3ff;
+    }
+    .symbol {
+      font-size: 24px;
+      display: block;
+    }
+    .label {
+      font-size: 11px;
+      color: #555;
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+  <h1>English Phonemes – Click to Hear</h1>
+  <p>
+    Click any phoneme symbol to hear an example word. You can click repeatedly to practise minimal pairs and contrast similar sounds.
+  </p>
+
+  <div class="section-title">Monophthong Vowels</div>
+  <div class="grid" id="vowels"></div>
+
+  <div class="section-title">Diphthongs</div>
+  <div class="grid" id="diphthongs"></div>
+
+  <div class="section-title">Consonants</div>
+  <div class="grid" id="consonants"></div>
+
+  <script>
+    // RP-style 44-phoneme set (approx.)
+    <!-- const vowels = [ -->
+      <!-- { sym: "iː", word: "see", speak: "see" }, -->
+      <!-- { sym: "ɪ",  word: "sit", speak: "sit" }, -->
+      <!-- { sym: "e",  word: "bed", speak: "bed" }, -->
+      <!-- { sym: "æ",  word: "cat", speak: "cat" }, -->
+      <!-- { sym: "ʌ",  word: "cup", speak: "cup" }, -->
+      <!-- { sym: "ɑː", word: "car", speak: "car" }, -->
+      <!-- { sym: "ɒ",  word: "hot", speak: "hot" }, -->
+      <!-- { sym: "ɔː", word: "door", speak: "door" }, -->
+      <!-- { sym: "ʊ",  word: "book", speak: "book" }, -->
+      <!-- { sym: "uː", word: "blue", speak: "blue" }, -->
+      <!-- { sym: "ɜː", word: "bird", speak: "bird" }, -->
+      <!-- { sym: "ə",  word: "about", speak: "about" } -->
+    <!-- ]; -->
+    const vowels = [
+      { sym: "iː", word: "see",  speak: "ee" },
+      { sym: "ɪ",  word: "sit",  speak: "ih" },
+      { sym: "e",  word: "bed",  speak: "eh" },
+      { sym: "æ",  word: "cat",  speak: "a" },
+      { sym: "ʌ",  word: "cup",  speak: "uh" },
+      { sym: "ɑː", word: "car",  speak: "ah" },
+      { sym: "ɒ",  word: "hot",  speak: "o" },
+      { sym: "ɔː", word: "door", speak: "or" },
+      { sym: "ʊ",  word: "book", speak: "uu" },
+      { sym: "uː", word: "blue", speak: "oo" },
+      { sym: "ɜː", word: "bird", speak: "er" },
+      { sym: "ə",  word: "about", speak: "uh" }
+    ];
+    const diphthongs = [
+      { sym: "eɪ", word: "day",   speak: "day" },
+      { sym: "aɪ", word: "my",    speak: "my" },
+      { sym: "ɔɪ", word: "boy",   speak: "boy" },
+      { sym: "aʊ", word: "now",   speak: "now" },
+      { sym: "əʊ", word: "go",    speak: "go" },
+      { sym: "ɪə", word: "ear",   speak: "ear" },
+      { sym: "eə", word: "chair", speak: "chair" },
+      { sym: "ʊə", word: "tour",  speak: "tour" }
+    ];
+
+    <!-- const consonants = [ -->
+      <!-- { sym: "p",  word: "pen",   speak: "pen" }, -->
+      <!-- { sym: "b",  word: "bad",   speak: "bad" }, -->
+      <!-- { sym: "t",  word: "tea",   speak: "tea" }, -->
+      <!-- { sym: "d",  word: "dog",   speak: "dog" }, -->
+      <!-- { sym: "k",  word: "cat",   speak: "cat" }, -->
+      <!-- { sym: "g",  word: "go",    speak: "go" }, -->
+      <!-- { sym: "f",  word: "fan",   speak: "fan" }, -->
+      <!-- { sym: "v",  word: "van",   speak: "van" }, -->
+      <!-- { sym: "θ",  word: "thin",  speak: "thin" }, -->
+      <!-- { sym: "ð",  word: "this",  speak: "this" }, -->
+      <!-- { sym: "s",  word: "see",   speak: "see" }, -->
+      <!-- { sym: "z",  word: "zoo",   speak: "zoo" }, -->
+      <!-- { sym: "ʃ",  word: "she",   speak: "she" }, -->
+      <!-- { sym: "ʒ",  word: "vision",speak: "vision" }, -->
+      <!-- { sym: "h",  word: "hat",   speak: "hat" }, -->
+      <!-- { sym: "tʃ", word: "chair", speak: "chair" }, -->
+      <!-- { sym: "dʒ", word: "job",   speak: "job" }, -->
+      <!-- { sym: "m",  word: "man",   speak: "man" }, -->
+      <!-- { sym: "n",  word: "no",    speak: "no" }, -->
+      <!-- { sym: "ŋ",  word: "sing",  speak: "sing" }, -->
+      <!-- { sym: "l",  word: "leg",   speak: "leg" }, -->
+      <!-- { sym: "r",  word: "red",   speak: "red" }, -->
+      <!-- { sym: "j",  word: "yes",   speak: "yes" }, -->
+      <!-- { sym: "w",  word: "we",    speak: "we" } -->
+    <!-- ]; -->
+    const consonants = [
+      { sym: "p",  word: "pen",   speak: "puh" },
+      { sym: "b",  word: "bad",   speak: "buh" },
+      { sym: "t",  word: "tea",   speak: "tuh" },
+      { sym: "d",  word: "dog",   speak: "duh" },
+      { sym: "k",  word: "cat",   speak: "kuh" },
+      { sym: "g",  word: "go",    speak: "guh" },
+      { sym: "f",  word: "fan",   speak: "fff" },
+      { sym: "v",  word: "van",   speak: "vvv" },
+      { sym: "θ",  word: "thin",  speak: "th" },
+      { sym: "ð",  word: "this",  speak: "th" },
+      { sym: "s",  word: "see",   speak: "sss" },
+      { sym: "z",  word: "zoo",   speak: "zzz" },
+      { sym: "ʃ",  word: "she",   speak: "shh" },
+      { sym: "ʒ",  word: "vision",speak: "zh" },
+      { sym: "h",  word: "hat",   speak: "hhh" },
+      { sym: "tʃ", word: "chair", speak: "ch" },
+      { sym: "dʒ", word: "job",   speak: "j" },
+      { sym: "m",  word: "man",   speak: "mmm" },
+      { sym: "n",  word: "no",    speak: "nnn" },
+      { sym: "ŋ",  word: "sing",  speak: "ng" },
+      { sym: "l",  word: "leg",   speak: "lll" },
+      { sym: "r",  word: "red",   speak: "rrr" },
+      { sym: "j",  word: "yes",   speak: "yyy" },
+      { sym: "w",  word: "we",    speak: "www" }
+    ];
+    function speak(text) {
+      if (!("speechSynthesis" in window)) {
+        alert("Speech synthesis not supported in this browser.");
+        return;
+      }
+      const utter = new SpeechSynthesisUtterance(text);
+      // Change to "en-US" if you prefer American accent
+      utter.lang = "en-GB";
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    }
+
+    function createCells(data, containerId) {
+      const container = document.getElementById(containerId);
+      data.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cell";
+        div.onclick = () => speak(item.speak);
+
+        const sym = document.createElement("span");
+        sym.className = "symbol";
+        sym.textContent = item.sym;
+
+        const lbl = document.createElement("span");
+        lbl.className = "label";
+        lbl.textContent = item.word;
+
+        div.appendChild(sym);
+        div.appendChild(lbl);
+        container.appendChild(div);
+      });
+    }
+
+    createCells(vowels, "vowels");
+    createCells(diphthongs, "diphthongs");
+    createCells(consonants, "consonants");
+  </script>
+</body>
+</html>
 
