@@ -713,7 +713,7 @@
         function generateQR() {
             const qrImg = document.getElementById('qr-code');
             const currentURL = encodeURIComponent(window.location.href); // always the live URL
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${currentURL}`;
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${currentURL}`;
         }
 
         // Run when the page loads
