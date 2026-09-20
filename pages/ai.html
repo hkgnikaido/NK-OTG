@@ -1,36 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI</title>
-  <link rel="icon" type="image/png" href="../img/favicon.png">
-  <style>
-    body{background:#5c473c;color:#fff;font-family:sans-serif;padding:20px}
-    a.btn{background:#ff7a18;color:#fff;padding:8px 14px;border-radius:6px;text-decoration:none;font-weight:bold;display:inline-block;margin:5px}
-    a.btn:hover{background:#e0650d}
-    h3{color:#a38c7e;font-size:14px;margin-top:20px}
-    hr{border:0;border-top:1px solid #789988;margin:15px 0}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Directory - NK OTG</title>
+    <!-- Favicon referencing site img folder relative to pages/ -->
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <style>
+        :root {
+            --bg-color: #5c473c;
+            --accent-orange: #ff7a18;
+            --line-color: #789988;
+            --card-bg: rgba(0, 0, 0, 0.15);
+            --border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Top Navigation Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--line-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: var(--accent-orange);
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .back-btn {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+
+        .back-btn:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* Responsive Table Container */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Direct Web URLs & AI Directory Table */
+        .ai-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: var(--card-bg);
+            font-size: 13.5px;
+        }
+
+        .ai-table th {
+            background-color: rgba(0, 0, 0, 0.35);
+            color: var(--accent-orange);
+            padding: 14px 16px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--line-color);
+            white-space: nowrap;
+        }
+
+        .ai-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+            line-height: 1.45;
+        }
+
+        .ai-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Formatted Subtext & Links */
+        .subtext {
+            display: block;
+            font-size: 11.5px;
+            color: #d1c4bc;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .url-link {
+            color: #ffaa5e;
+            text-decoration: none;
+            word-break: break-all;
+            font-family: monospace;
+        }
+
+        .url-link:hover {
+            text-decoration: underline;
+        }
+
+        .risk-badge {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .risk-low { color: #81c784; }
+        .risk-mod { color: #ffb74d; }
+        .risk-high { color: #e57373; }
+    </style>
 </head>
 <body>
-  <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #789988;padding-bottom:5px">
-    <h1 style="color:#ff7a18;margin:0">AI</h1>
-    <a href="../index.html" style="color:#fff;text-decoration:none">&larr; Back</a>
-  </div>
 
-  <h3>Conversational & Search</h3>
-  <a class="btn" href="https://gemini.google.com" target="_blank">G ai mode</a>
-  <a class="btn" href="https://gemini.google.com" target="_blank">Gemini</a>
-  <a class="btn" href="https://x.ai" target="_blank">Grok xAi</a>
-  <a class="btn" href="https://www.perplexity.ai" target="_blank">Perplexity</a>
-  <a class="btn" href="https://claude.ai" target="_blank">Claude</a>
-  <a class="btn" href="https://poe.com" target="_blank">Poe</a>
-  <a class="btn" href="https://copilot.microsoft.com" target="_blank">Copilot</a>
+    <div class="container">
+        <div class="header">
+            <h1>AI Directory</h1>
+            <a href="../index.html" class="back-btn">&larr; Main Portal</a>
+        </div>
 
-  <hr>
+        <div class="table-responsive">
+            <table class="ai-table">
+                <thead>
+                    <tr>
+                        <th>Region / Tier</th>
+                        <th>AI Free Portal Name</th>
+                        <th>Direct Web URL</th>
+                        <th>Company Behind & Listing Status</th>
+                        <th>Tech / Model Type</th>
+                        <th>Security / Privacy Risk Level</th>
+                        <th>Most Powerful Features & Unique Free Offerings</th>
+                    </tr>
+                </thead>
+                <tbody id="ai-table-body">
+                    <!-- Populated dynamically via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-  <h3>Generative</h3>
-  <a class="btn" href="https://leonardo.ai" target="_blank">Leonardo</a>
-  <a class="btn" href="https://www.bing.com/create" target="_blank">Bing Image</a>
+    <script>
+        // Data Array - US Big 6, China/Asia, and Japan Tiers
+        const aiDirectoryData = [
+            // --- US BIG 6 / WESTERN FRONTIER ---
+            {
+                region: "US Tier (Big 6)",
+                name: "ChatGPT",
+                url: "https://chatgpt.com",
+                company: "OpenAI",
+                status: "(Private, Microsoft Backed)",
+                tech: "Proprietary LLM (GPT-4o, o1 series)",
+                riskLevel: "Moderate Risk",
+                riskClass: "risk-mod",
+                riskDetails: "(Data used for training unless explicitly toggled off in privacy controls)",
+                features: "Multi-modal reasoning, native real-time voice, custom GPTs, code execution, canvas editor."
+            },
+            {
+                region: "US Tier (Big 6)",
+                name: "Claude",
+                url: "https://claude.ai",
+                company: "Anthropic",
+                status: "(Private, Amazon/Google Backed)",
+                tech: "Proprietary LLM (Claude 3.5 Sonnet)",
+                riskLevel: "Lowest Risk (US)",
+                riskClass: "risk-low",
+                riskDetails: "(Strict SOC 2 Type II compliance, primary focus on AI safety and Constitutional AI)",
+                features: "Industry-best coding logic, Artifacts UI (live rendering of code/SVG in side window), natural human writing style."
+            },
+            {
+                region: "US Tier (Big 6)",
+                name: "Gemini",
+                url: "https://gemini.google.com",
+                company: "Google (Alphabet Inc.)",
+                status: "(NASDAQ: GOOGL)",
+                tech: "Native Multimodal LLM (Gemini 1.5 Pro)",
+                riskLevel: "Moderate Risk",
+                riskClass: "risk-mod",
+                riskDetails: "(Integrated with Google Account ecosystem; human review policies apply)",
+                features: "Massive 2M token context window (reads large PDFs/video files for free), direct Google Workspace integration (Docs/Drive)."
+            },
+            {
+                region: "US Tier (Big 6)",
+                name: "Meta AI",
+                url: "https://www.meta.ai",
+                company: "Meta Platforms, Inc.",
+                status: "(NASDAQ: META)",
+                tech: "Open-Weights LLM (Llama 3 / 4 Series)",
+                riskLevel: "Moderate-High Risk",
+                riskClass: "risk-high",
+                riskDetails: "(Aggressive data collection across Instagram/Facebook social ecosystem)",
+                features: "Fast real-time /imagine image generation as you type; deeply connected to Llama open ecosystem."
+            },
+            {
+                region: "US Tier (Big 6)",
+                name: "Microsoft Copilot",
+                url: "https://copilot.microsoft.com",
+                company: "Microsoft Corporation",
+                status: "(NASDAQ: MSFT)",
+                tech: "OpenAI Fine-Tuned (GPT-4o + Bing Web)",
+                riskLevel: "Moderate Risk",
+                riskClass: "risk-mod",
+                riskDetails: "(Enterprise grade on commercial logins; consumer tier uses interaction data)",
+                features: "Seamless Windows / M365 integration, free DALL-E 3 image generation, live Bing web search citations."
+            },
+            {
+                region: "US Tier (Big 6)",
+                name: "Grok",
+                url: "https://x.ai",
+                company: "xAI",
+                status: "(Private, Elon Musk)",
+                tech: "Proprietary LLM (Grok 2 / Grok 3)",
+                riskLevel: "Moderate-High Risk",
+                riskClass: "risk-high",
+                riskDetails: "(Posts/prompts used for model training; real-time feeds tied to X data)",
+                features: "Uncensored output mode, real-time access to X (Twitter) social data streams, vision analysis."
+            },
+
+            // --- CHINA / ASIA FRONTIER TIER ---
+            {
+                region: "Asia / China Tier",
+                name: "DeepSeek",
+                url: "https://chat.deepseek.com",
+                company: "DeepSeek AI (High-Flyer)",
+                status: "(Private, Chinese Quant Hedge Fund)",
+                tech: "Open-Weights MoE Reasoning (DeepSeek-V3 / R1)",
+                riskLevel: "High Risk (Data Residency)",
+                riskClass: "risk-high",
+                riskDetails: "(Subject to mainland data governance & censorship laws; API data stored in PRC)",
+                features: "State-of-the-art open reasoning (R1 chain-of-thought) at near-zero inference cost; top-tier math and coding capabilities."
+            },
+            {
+                region: "Asia / China Tier",
+                name: "Qwen (Tongyi Qianwen)",
+                url: "https://tongyi.aliyun.com",
+                company: "Alibaba Group Holdings",
+                status: "(NYSE: BABA / HKEX: 9988)",
+                tech: "Open-Weights LLM (Qwen 2.5 / Qwen 2.5-Coder)",
+                riskLevel: "High Risk (Data Residency)",
+                riskClass: "risk-high",
+                riskDetails: "(Regulated under PRC Generative AI Laws; data subject to regional compliance)",
+                features: "Leading multilingual performance, exceptional open-source coding models, massive enterprise ecosystem on Aliyun."
+            },
+            {
+                region: "Asia / China Tier",
+                name: "Kimi",
+                url: "https://kimi.moonshot.cn",
+                company: "Moonshot AI",
+                status: "(Private, Alibaba / Tencent Backed)",
+                tech: "Proprietary Long-Context LLM (Kimi K2 / K3)",
+                riskLevel: "High Risk (Data Residency)",
+                riskClass: "risk-high",
+                riskDetails: "(PRC data residency for hosted API; open weights can be self-hosted locally for privacy)",
+                features: "Pioneered ultra-long context windows (up to 2M+ tokens); superior long-document analysis, financial research, and file processing."
+            },
+
+            // --- JAPAN TIER ---
+            {
+                region: "Japan Tier",
+                name: "ELYZA (Llama-JP)",
+                url: "https://elyza.ai",
+                company: "ELYZA Inc. / KDDI Group",
+                status: "(KDDI Subsidiary, Tokyo Univ. Spin-off)",
+                tech: "Japanese Fine-Tuned Llama (ELYZA-japanese-Llama)",
+                riskLevel: "Lowest Risk (JP)",
+                riskClass: "risk-low",
+                riskDetails: "(Strict compliance with Japanese APPI privacy law & local data center hosting)",
+                features: "Highest native Japanese linguistic accuracy, specialized in Keigo (formal Japanese), business summary, and local context."
+            },
+            {
+                region: "Japan Tier",
+                name: "tsubame / NTT tsuzumi",
+                url: "https://www.ntt.com/business/services/ai/tsuzumi.html",
+                company: "NTT Corporation",
+                status: "(TYO: 9432)",
+                tech: "Ultra-Lightweight Enterprise LLM (tsuzumi)",
+                riskLevel: "Lowest Risk (JP)",
+                riskClass: "risk-low",
+                riskDetails: "(On-premise deployment available; full Japanese corporate privacy guarantees)",
+                features: "Designed specifically for Japanese corporate workflows; runs on low-power hardware with high precision for Japanese text."
+            }
+        ];
+
+        // Render Table Rows Function
+        function renderDirectory() {
+            const tbody = document.getElementById("ai-table-body");
+            tbody.innerHTML = "";
+
+            aiDirectoryData.forEach(item => {
+                const tr = document.createElement("tr");
+
+                tr.innerHTML = `
+                    <td><strong>${item.region}</strong></td>
+                    <td><strong>${item.name}</strong></td>
+                    <td><a href="${item.url}" target="_blank" rel="noopener noreferrer" class="url-link">${item.url}</a></td>
+                    <td>
+                        <strong>${item.company}</strong>
+                        <span class="subtext">${item.status}</span>
+                    </td>
+                    <td>${item.tech}</td>
+                    <td>
+                        <span class="risk-badge ${item.riskClass}">${item.riskLevel}</span>
+                        <span class="subtext">${item.riskDetails}</span>
+                    </td>
+                    <td>${item.features}</td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        renderDirectory();
+    </script>
 </body>
 </html>
